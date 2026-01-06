@@ -1,24 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Meu primeiro site</title>
+<meta charset="UTF-8">
+<title>Portfólio | Matheus</title>
 
-  <style>
-    body {
-      background-color: #1e1e1e;
-      color: white;
-      font-family: Arial;
-      text-align: center;
-      margin-top: 50px;
-    }
-  </style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #0f0f1a, #050510);
+  color: white;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+header h1 {
+  font-size: 48px;
+  background: linear-gradient(90deg, #00f2ff, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header p {
+  margin-top: 15px;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* CARDS */
+.card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 60px rgba(138,43,226,0.5);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+  color: #00f2ff;
+}
+
+/* BOTÕES */
+.buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(90deg, #8a2be2, #00f2ff);
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00f2ff;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  opacity: 0.5;
+  font-size: 14px;
+}
+</style>
 </head>
+
 <body>
 
-  <h1>Funcionou! 🚀</h1>
-  <p>Agora meu site tem cor.</p>
+<header>
+  <h1>Matheus</h1>
+  <p>Iniciante em programação • Criando coisas na internet 🚀</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>👋 Sobre mim</h2>
+    <p>
+      Comecei do zero total e criei esse site só pra aprender e zoar.
+      Hoje é brincadeira, amanhã é profissão 😈
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>🧠 Habilidades</h2>
+    <p>• HTML básico</p>
+    <p>• CSS estiloso 😎</p>
+    <p>• Curiosidade infinita</p>
+    <p>• Vontade de aprender</p>
+  </div>
+
+  <div class="card">
+    <h2>🚀 Projetos</h2>
+    <p>• Meu primeiro site</p>
+    <p>• Portfólio gamer</p>
+    <p>• Projetos futuros 👀</p>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Me encontra</h2>
+    <div class="buttons">
+      <a class="button" href="#">Discord</a>
+      <a class="button" href="#">GitHub</a>
+      <a class="button" href="#">Instagram</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 • Feito por Matheus no VS Code 💻
+</footer>
 
 </body>
 </html>
