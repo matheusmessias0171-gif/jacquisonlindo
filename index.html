@@ -61,6 +61,79 @@ header {
   to { box-shadow: 0 0 40px #8a2be2; }
 }
 
+/* LINKS */
+.links {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.links a {
+  padding: 10px 18px;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #00f2ff, #8a2be2);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* PLAYER */
+.player {
+  margin: 30px auto 0;
+  max-width: 320px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.player-info {
+  flex: 1;
+}
+
+.player-info p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.controls button {
+  border: none;
+  background: linear-gradient(90deg, #00f2ff, #8a2be2);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* BARRA */
+.progress {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.progress input {
+  width: 100%;
+}
+
 /* CONTAINER */
 .container {
   max-width: 900px;
@@ -87,52 +160,12 @@ header {
   margin-bottom: 10px;
 }
 
-/* LINKS */
-.links {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.links a {
-  padding: 10px 18px;
-  border-radius: 25px;
-  background: linear-gradient(90deg, #00f2ff, #8a2be2);
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* BOTÃO MÚSICA */
-.music {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-
-.music button {
-  padding: 12px 20px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(90deg, #00f2ff, #8a2be2);
-  color: white;
-  font-weight: bold;
-}
-
 /* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   font-size: 14px;
   opacity: 0.6;
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  header h1 { font-size: 32px; }
-  .profile img { width: 120px; height: 120px; }
 }
 </style>
 </head>
@@ -150,6 +183,21 @@ footer {
   <div class="links">
     <a href="https://discord.gg/9scAtcXT" target="_blank">Discord</a>
     <a href="https://www.instagram.com/rlk_mtzin016/" target="_blank">Instagram</a>
+  </div>
+
+  <!-- PLAYER -->
+  <div class="player">
+    <img src="https://i.imgur.com/vWoLx1T.png">
+    <div class="player-info">
+      <strong>Minha música 🎵</strong>
+      <p>Vibe do site</p>
+      <div class="progress">
+        <input type="range" id="progress" value="0">
+      </div>
+    </div>
+    <div class="controls">
+      <button onclick="toggleMusic()">▶</button>
+    </div>
   </div>
 </header>
 
@@ -174,11 +222,7 @@ footer {
   © 2026 • Matheus
 </footer>
 
-<div class="music">
-  <button onclick="toggleMusic()">🎵 Música</button>
-</div>
-
-<audio id="bgMusic" loop>
+<audio id="bgMusic">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -186,21 +230,30 @@ footer {
 // TEXTO DIGITANDO
 const text = "Começando do zero • Criando sites • Evoluindo 🚀";
 let i = 0;
-const speed = 70;
 function typingEffect() {
   if (i < text.length) {
     document.getElementById("typing").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typingEffect, speed);
+    setTimeout(typingEffect, 70);
   }
 }
 typingEffect();
 
 // MÚSICA
 const music = document.getElementById("bgMusic");
+const progress = document.getElementById("progress");
+
 function toggleMusic() {
   music.paused ? music.play() : music.pause();
 }
+
+music.addEventListener("timeupdate", () => {
+  progress.value = (music.currentTime / music.duration) * 100;
+});
+
+progress.addEventListener("input", () => {
+  music.currentTime = (progress.value / 100) * music.duration;
+});
 </script>
 
 </body>
