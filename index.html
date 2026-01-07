@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Site do | Matheus</title>
 
+<!-- FAVICON -->
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon.png">
+
 <style>
 * {
   margin: 0;
@@ -208,7 +212,6 @@ footer {
     <a href="https://www.instagram.com/rlk_mtzin016/" target="_blank">Instagram</a>
   </div>
 
-  <!-- PLAYER -->
   <div class="player">
     <img src="https://imgur.com/ZAcuhSz.png">
     <h3>Gargalhada do meu AK 🔫</h3>
@@ -233,8 +236,6 @@ footer {
   <div class="card">
     <h2>💻 Projetos</h2>
     <p>• Ganhar muito dinheiro</p>
-    <p></p>
-    <p></p>
   </div>
 
   <div class="card">
@@ -268,7 +269,6 @@ footer {
 </audio>
 
 <script>
-// TEXTO DIGITANDO
 const text = "Começando do zero • So quero dinheiro • Criando site inútil 🚀";
 let i = 0;
 function typingEffect() {
@@ -280,7 +280,6 @@ function typingEffect() {
 }
 typingEffect();
 
-// PLAYER
 const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
 
@@ -306,13 +305,11 @@ function format(sec) {
   return `${m}:${s}`;
 }
 
-// COPIAR LINK
 function copyLink() {
   navigator.clipboard.writeText(window.location.href);
   alert("Link copiado 😎");
 }
 
-// RELÓGIO
 setInterval(() => {
   clock.innerText = new Date().toLocaleTimeString();
 }, 1000);
