@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfólio | Matheus</title>
+<title>Site do | Matheus</title>
 
 <style>
 * {
@@ -12,7 +12,6 @@
   box-sizing: border-box;
 }
 
-/* FUNDO */
 body {
   font-family: Arial, sans-serif;
   min-height: 100vh;
@@ -31,10 +30,9 @@ body {
 /* HEADER */
 header {
   text-align: center;
-  padding: 70px 20px 40px;
+  padding: 70px 20px 30px;
 }
 
-/* TEXTO DIGITANDO */
 .typing {
   font-size: 20px;
   margin-top: 10px;
@@ -42,7 +40,6 @@ header {
   min-height: 24px;
 }
 
-/* FOTO */
 .profile {
   margin-top: 30px;
 }
@@ -61,7 +58,6 @@ header {
   to { box-shadow: 0 0 40px #8a2be2; }
 }
 
-/* LINKS */
 .links {
   display: flex;
   gap: 15px;
@@ -80,58 +76,51 @@ header {
 
 /* PLAYER */
 .player {
-  margin: 30px auto 0;
-  max-width: 320px;
+  margin: 30px auto;
+  max-width: 340px;
   background: rgba(255,255,255,0.12);
   backdrop-filter: blur(10px);
   border-radius: 18px;
   padding: 15px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  text-align: center;
 }
 
 .player img {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  object-fit: cover;
+  width: 100%;
+  border-radius: 14px;
 }
 
-.player-info {
-  flex: 1;
-}
-
-.player-info p {
-  font-size: 14px;
-  opacity: 0.85;
+.player h3 {
+  margin: 10px 0;
 }
 
 .controls {
   display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.controls button {
-  border: none;
-  background: linear-gradient(90deg, #00f2ff, #8a2be2);
-  color: white;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 18px;
+  justify-content: center;
+  gap: 20px;
+  font-size: 26px;
   cursor: pointer;
 }
 
-/* BARRA */
 .progress {
   width: 100%;
-  margin-top: 8px;
+  height: 6px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
 }
 
-.progress input {
-  width: 100%;
+.progress div {
+  height: 100%;
+  width: 0%;
+  background: #00f2ff;
+  border-radius: 5px;
+}
+
+.time {
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 /* CONTAINER */
@@ -141,23 +130,57 @@ header {
   padding: 20px;
 }
 
-/* CARDS */
 .card {
   background: rgba(255,255,255,0.1);
   border-radius: 16px;
   padding: 25px;
   margin-bottom: 25px;
   backdrop-filter: blur(10px);
-  transition: transform 0.4s;
-}
-
-.card:hover {
-  transform: rotateY(8deg) rotateX(4deg) scale(1.03);
 }
 
 .card h2 {
   color: #00f2ff;
   margin-bottom: 10px;
+}
+
+/* SKILLS */
+.skill {
+  margin: 10px 0;
+}
+
+.bar {
+  height: 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #00f2ff, #8a2be2);
+  border-radius: 10px;
+  animation: fill 2s forwards;
+}
+
+@keyframes fill {
+  to { width: var(--level); }
+}
+
+/* BOTÕES */
+.actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.actions button {
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #00f2ff, #8a2be2);
+  color: white;
+  font-weight: bold;
 }
 
 /* FOOTER */
@@ -187,73 +210,112 @@ footer {
 
   <!-- PLAYER -->
   <div class="player">
-    <img src="https://imgur.com/mCntLRI.png">
-    <div class="player-info">
-      <strong>Gargalhada do meu AK 🎵</strong>
-      <p>...</p>
-      <div class="progress">
-        <input type="range" id="progress" value="0">
-      </div>
-    </div>
+    <img src="https://imgur.com/ZAcuhSz.png">
+    <h3>Gargalhada do meu AK 🔫</h3>
+
     <div class="controls">
-      <button onclick="toggleMusic()">▶</button>
+      <span onclick="togglePlay()">▶️</span>
+    </div>
+
+    <div class="progress" onclick="setProgress(event)">
+      <div id="progress"></div>
+    </div>
+
+    <div class="time">
+      <span id="current">0:00</span> /
+      <span id="duration">0:00</span>
     </div>
   </div>
 </header>
 
 <div class="container">
+
   <div class="card">
-    <h2>👋 Sobre mim</h2>
-    <p> PRO 😈</p>
+    <h2>💻 Projetos</h2>
+    <p>• Ganhar muito dinheiro</p>
+    <p></p>
+    <p></p>
   </div>
 
   <div class="card">
-    <h2>🧠 Aprendendo</h2>
-    <p>HTML • CSS • GitHub Pages</p>
+    <h2>🧠 Cerebro ta ruim</h2>
+
+    <div class="skill">HTML
+      <div class="bar"><span style="--level:70%"></span></div>
+    </div>
+
+    <div class="skill">CSS
+      <div class="bar"><span style="--level:60%"></span></div>
+    </div>
+
+    <div class="skill">GitHub
+      <div class="bar"><span style="--level:50%"></span></div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>🚀 Objetivo</h2>
-    <p>Ganhar dinheiro.</p>.</p>
+  <div class="actions">
+    <button onclick="copyLink()">📋 Copiar link do site</button>
   </div>
+
 </div>
 
 <footer>
-  © 2026 • Matheus
+  © 2026 • Matheus • <span id="clock"></span>
 </footer>
 
-<audio id="bgMusic">
+<audio id="audio">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 // TEXTO DIGITANDO
-const text = "Começando do zero • Criando sites • Evoluindo 🚀";
+const text = "Começando do zero • So quero dinheiro • Criando site inútil 🚀";
 let i = 0;
 function typingEffect() {
   if (i < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(i);
+    typing.innerHTML += text.charAt(i);
     i++;
-    setTimeout(typingEffect, 70);
+    setTimeout(typingEffect, 60);
   }
 }
 typingEffect();
 
-// MÚSICA
-const music = document.getElementById("bgMusic");
+// PLAYER
+const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
 
-function toggleMusic() {
-  music.paused ? music.play() : music.pause();
+function togglePlay() {
+  audio.paused ? audio.play() : audio.pause();
 }
 
-music.addEventListener("timeupdate", () => {
-  progress.value = (music.currentTime / music.duration) * 100;
+audio.addEventListener("timeupdate", () => {
+  progress.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+  current.innerText = format(audio.currentTime);
+  duration.innerText = format(audio.duration);
 });
 
-progress.addEventListener("input", () => {
-  music.currentTime = (progress.value / 100) * music.duration;
-});
+function setProgress(e) {
+  const percent = e.offsetX / e.target.clientWidth;
+  audio.currentTime = percent * audio.duration;
+}
+
+function format(sec) {
+  if (!sec) return "0:00";
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60).toString().padStart(2, "0");
+  return `${m}:${s}`;
+}
+
+// COPIAR LINK
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href);
+  alert("Link copiado 😎");
+}
+
+// RELÓGIO
+setInterval(() => {
+  clock.innerText = new Date().toLocaleTimeString();
+}, 1000);
 </script>
 
 </body>
