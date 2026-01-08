@@ -5,74 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Site do | Matheus</title>
 
-<!-- FAVICON -->
 <link rel="icon" href="favicon.ico">
 <link rel="icon" type="image/png" href="favicon.png">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   font-family: Arial, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(-45deg, #1e3c72, #2a5298, #000428, #004e92);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background: radial-gradient(circle at top, #1b2735, #090a0f);
   color: white;
+  overflow-x: hidden;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* PARTÍCULAS */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
 }
 
 /* HEADER */
 header {
   text-align: center;
-  padding: 70px 20px 30px;
+  padding: 70px 20px 40px;
+}
+
+h1 {
+  font-size: 42px;
 }
 
 .typing {
   font-size: 20px;
+  opacity: .85;
+  margin-top: 8px;
+}
+
+.status {
   margin-top: 10px;
-  opacity: 0.85;
-  min-height: 24px;
+  font-size: 14px;
+  color: #00ff88;
 }
 
-.profile {
-  margin-top: 30px;
-}
-
+/* FOTO */
 .profile img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  margin-top: 25px;
   border: 4px solid #00f2ff;
-  object-fit: cover;
-  animation: glow 2.5s infinite alternate;
+  animation: pulse 3s infinite alternate;
 }
 
-@keyframes glow {
+@keyframes pulse {
   from { box-shadow: 0 0 15px #00f2ff; }
-  to { box-shadow: 0 0 40px #8a2be2; }
+  to { box-shadow: 0 0 35px #8a2be2; }
 }
 
+/* LINKS */
 .links {
   display: flex;
-  gap: 15px;
   justify-content: center;
+  gap: 15px;
   margin-top: 20px;
 }
 
 .links a {
   padding: 10px 18px;
   border-radius: 25px;
-  background: linear-gradient(90deg, #00f2ff, #8a2be2);
+  background: linear-gradient(90deg,#00f2ff,#8a2be2);
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -80,51 +82,23 @@ header {
 
 /* PLAYER */
 .player {
-  margin: 30px auto;
+  margin: 35px auto;
   max-width: 340px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
   border-radius: 18px;
   padding: 15px;
-  text-align: center;
 }
 
 .player img {
   width: 100%;
-  border-radius: 14px;
-}
-
-.player h3 {
-  margin: 10px 0;
+  border-radius: 12px;
 }
 
 .controls {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  font-size: 26px;
+  font-size: 28px;
   cursor: pointer;
-}
-
-.progress {
-  width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 5px;
-  margin: 10px 0;
-  cursor: pointer;
-}
-
-.progress div {
-  height: 100%;
-  width: 0%;
-  background: #00f2ff;
-  border-radius: 5px;
-}
-
-.time {
-  font-size: 12px;
-  opacity: 0.8;
+  margin-top: 8px;
 }
 
 /* CONTAINER */
@@ -135,11 +109,15 @@ header {
 }
 
 .card {
-  background: rgba(255,255,255,0.1);
-  border-radius: 16px;
+  background: rgba(255,255,255,.08);
+  border-radius: 18px;
   padding: 25px;
   margin-bottom: 25px;
-  backdrop-filter: blur(10px);
+  transition: transform .4s;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
 }
 
 .card h2 {
@@ -147,91 +125,62 @@ header {
   margin-bottom: 10px;
 }
 
-/* SKILLS */
-.skill {
-  margin: 10px 0;
-}
-
-.bar {
-  height: 10px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 10px;
-}
-
-.bar span {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #00f2ff, #8a2be2);
-  border-radius: 10px;
-  animation: fill 2s forwards;
-}
-
-@keyframes fill {
-  to { width: var(--level); }
-}
-
-/* BOTÕES */
-.actions {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.actions button {
-  padding: 10px 18px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(90deg, #00f2ff, #8a2be2);
-  color: white;
+/* NUMERO 9 */
+.big-nine {
+  font-size: 90px;
   font-weight: bold;
+  text-align: center;
+  background: linear-gradient(90deg,#00f2ff,#8a2be2);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: glowNine 1.5s infinite alternate;
+}
+
+@keyframes glowNine {
+  from { filter: drop-shadow(0 0 10px #00f2ff); }
+  to { filter: drop-shadow(0 0 25px #8a2be2); }
 }
 
 /* FOOTER */
 footer {
   text-align: center;
+  opacity: .6;
   padding: 20px;
-  font-size: 14px;
-  opacity: 0.6;
 }
 </style>
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <header>
   <h1>Matheus 😎</h1>
   <div class="typing" id="typing"></div>
+  <div class="status">🟢 Online agora</div>
 
   <div class="profile">
     <img src="https://i.imgur.com/vWoLx1T.png">
   </div>
 
   <div class="links">
-    <a href="https://discord.gg/9scAtcXT" target="_blank">Discord</a>
-    <a href="https://www.instagram.com/rlk_mtzin016/" target="_blank">Instagram</a>
+    <a href="#">Discord</a>
+    <a href="#">Instagram</a>
   </div>
 
   <div class="player">
     <img src="https://imgur.com/ZAcuhSz.png">
     <h3>Gargalhada do meu AK 🔫</h3>
-
-    <div class="controls">
-      <span onclick="togglePlay()">▶️</span>
-    </div>
-
-    <div class="progress" onclick="setProgress(event)">
-      <div id="progress"></div>
-    </div>
-
-    <div class="time">
-      <span id="current">0:00</span> /
-      <span id="duration">0:00</span>
-    </div>
+    <div class="controls" onclick="togglePlay()">▶️</div>
   </div>
 </header>
 
 <div class="container">
+
+  <div class="card">
+    <h2>🔢 Número lendário</h2>
+    <div class="big-nine">9</div>
+  </div>
 
   <div class="card">
     <h2>💻 Projetos</h2>
@@ -239,23 +188,8 @@ footer {
   </div>
 
   <div class="card">
-    <h2>🧠 Cerebro ta ruim</h2>
-
-    <div class="skill">HTML
-      <div class="bar"><span style="--level:70%"></span></div>
-    </div>
-
-    <div class="skill">CSS
-      <div class="bar"><span style="--level:60%"></span></div>
-    </div>
-
-    <div class="skill">GitHub
-      <div class="bar"><span style="--level:50%"></span></div>
-    </div>
-  </div>
-
-  <div class="actions">
-    <button onclick="copyLink()">📋 Copiar link do site</button>
+    <h2>👀 Visitas</h2>
+    <p id="visits"></p>
   </div>
 
 </div>
@@ -269,50 +203,74 @@ footer {
 </audio>
 
 <script>
-const text = "Começando do zero • So quero dinheiro • Criando site inútil 🚀";
+// TEXTO DIGITANDO
+const text = "Começando do zero • Só quero dinheiro • Site insano 😈";
 let i = 0;
-function typingEffect() {
-  if (i < text.length) {
-    typing.innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typingEffect, 60);
+(function type(){
+  if(i < text.length){
+    typing.innerHTML += text[i++];
+    setTimeout(type, 55);
   }
-}
-typingEffect();
+})();
 
+// PLAYER
 const audio = document.getElementById("audio");
-const progress = document.getElementById("progress");
-
-function togglePlay() {
+function togglePlay(){
   audio.paused ? audio.play() : audio.pause();
 }
 
-audio.addEventListener("timeupdate", () => {
-  progress.style.width = (audio.currentTime / audio.duration) * 100 + "%";
-  current.innerText = format(audio.currentTime);
-  duration.innerText = format(audio.duration);
+// RELÓGIO
+setInterval(()=>{
+  clock.innerText = new Date().toLocaleTimeString();
+},1000);
+
+// VISITAS (fake local)
+let visits = localStorage.getItem("visits") || 0;
+visits++;
+localStorage.setItem("visits", visits);
+document.getElementById("visits").innerText = `👁️ ${visits} visitas`;
+
+// EASTER EGG
+let secret = "";
+document.addEventListener("keydown", e => {
+  secret += e.key.toLowerCase();
+  if(secret.includes("ak47")){
+    alert("🔫 Easter Egg desbloqueado 😈");
+    secret = "";
+  }
 });
 
-function setProgress(e) {
-  const percent = e.offsetX / e.target.clientWidth;
-  audio.currentTime = percent * audio.duration;
+// PARTÍCULAS
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+resize();
+window.onresize = resize;
+
+let stars = Array.from({length:80}, () => ({
+  x: Math.random()*canvas.width,
+  y: Math.random()*canvas.height,
+  r: Math.random()*1.5+0.5,
+  s: Math.random()*0.5+0.2
+}));
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
 }
 
-function format(sec) {
-  if (!sec) return "0:00";
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60).toString().padStart(2, "0");
-  return `${m}:${s}`;
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "#00f2ff";
+  stars.forEach(p=>{
+    p.y += p.s;
+    if(p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
 }
-
-function copyLink() {
-  navigator.clipboard.writeText(window.location.href);
-  alert("Link copiado 😎");
-}
-
-setInterval(() => {
-  clock.innerText = new Date().toLocaleTimeString();
-}, 1000);
+draw();
 </script>
 
 </body>
