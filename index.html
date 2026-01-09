@@ -17,13 +17,35 @@ body {
   background: radial-gradient(circle at top, #1b2735, #090a0f);
   color: white;
   overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR */
+.cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #00f2ff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 15px #00f2ff;
+}
+
+/* GLOW MOUSE */
+.glow {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at var(--x) var(--y), rgba(0,242,255,.12), transparent 40%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* PARTÍCULAS */
 canvas {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
 }
 
 /* HEADER */
@@ -32,9 +54,7 @@ header {
   padding: 70px 20px 40px;
 }
 
-h1 {
-  font-size: 42px;
-}
+h1 { font-size: 42px; }
 
 .typing {
   font-size: 20px;
@@ -46,6 +66,17 @@ h1 {
   margin-top: 10px;
   font-size: 14px;
   color: #00ff88;
+}
+
+/* BADGE */
+.badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: linear-gradient(90deg,#00f2ff,#8a2be2);
+  font-weight: bold;
 }
 
 /* FOTO */
@@ -90,16 +121,9 @@ h1 {
   padding: 15px;
 }
 
-.player img {
-  width: 100%;
-  border-radius: 12px;
-}
+.player img { width: 100%; border-radius: 12px; }
 
-.controls {
-  font-size: 28px;
-  cursor: pointer;
-  margin-top: 8px;
-}
+.controls { font-size: 28px; cursor: pointer; }
 
 /* CONTAINER */
 .container {
@@ -113,17 +137,17 @@ h1 {
   border-radius: 18px;
   padding: 25px;
   margin-bottom: 25px;
-  transition: transform .4s;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: .6s;
 }
 
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.card h2 {
-  color: #00f2ff;
-  margin-bottom: 10px;
-}
+.card h2 { color: #00f2ff; }
 
 /* NUMERO 9 */
 .big-nine {
@@ -133,12 +157,6 @@ h1 {
   background: linear-gradient(90deg,#00f2ff,#8a2be2);
   -webkit-background-clip: text;
   color: transparent;
-  animation: glowNine 1.5s infinite alternate;
-}
-
-@keyframes glowNine {
-  from { filter: drop-shadow(0 0 10px #00f2ff); }
-  to { filter: drop-shadow(0 0 25px #8a2be2); }
 }
 
 /* FOOTER */
@@ -152,12 +170,15 @@ footer {
 
 <body>
 
+<div class="cursor"></div>
+<div class="glow"></div>
 <canvas id="bg"></canvas>
 
 <header>
   <h1>Matheus 😎</h1>
   <div class="typing" id="typing"></div>
   <div class="status">🟢 Online agora</div>
+  <div class="badge">DEV</div>
 
   <div class="profile">
     <img src="https://i.imgur.com/vWoLx1T.png">
@@ -178,18 +199,18 @@ footer {
 <div class="container">
 
   <div class="card">
-    <h2>🔢 Número lendário</h2>
-    <div class="big-nine">9</div>
+    <h2>🍀 Número da Sorte</h2>
+    <div class="big-nine">7</div>
+  </div>
+
+  <div class="card">
+    <h2>⏱️ Tempo no site</h2>
+    <p id="timeOn">0s</p>
   </div>
 
   <div class="card">
     <h2>💻 Projetos</h2>
     <p>• Ganhar muito dinheiro</p>
-  </div>
-
-  <div class="card">
-    <h2>👀 Visitas</h2>
-    <p id="visits"></p>
   </div>
 
 </div>
@@ -203,7 +224,7 @@ footer {
 </audio>
 
 <script>
-// TEXTO DIGITANDO
+// DIGITAÇÃO
 const text = "Começando do zero • Só quero dinheiro • Site insano 😈";
 let i = 0;
 (function type(){
@@ -215,28 +236,42 @@ let i = 0;
 
 // PLAYER
 const audio = document.getElementById("audio");
-function togglePlay(){
-  audio.paused ? audio.play() : audio.pause();
-}
+function togglePlay(){ audio.paused ? audio.play() : audio.pause(); }
 
 // RELÓGIO
+setInterval(()=>clock.innerText = new Date().toLocaleTimeString(),1000);
+
+// TEMPO NO SITE
+let seconds = 0;
 setInterval(()=>{
-  clock.innerText = new Date().toLocaleTimeString();
+  seconds++;
+  timeOn.innerText = seconds + "s";
 },1000);
 
-// VISITAS (fake local)
-let visits = localStorage.getItem("visits") || 0;
-visits++;
-localStorage.setItem("visits", visits);
-document.getElementById("visits").innerText = `👁️ ${visits} visitas`;
+// ANIMAÇÃO SCROLL
+const cards = document.querySelectorAll(".card");
+window.addEventListener("scroll", ()=>{
+  cards.forEach(c=>{
+    if(c.getBoundingClientRect().top < innerHeight - 80){
+      c.classList.add("show");
+    }
+  });
+});
 
-// EASTER EGG
-let secret = "";
-document.addEventListener("keydown", e => {
-  secret += e.key.toLowerCase();
-  if(secret.includes("ak47")){
-    alert("🔫 Easter Egg desbloqueado 😈");
-    secret = "";
+// CURSOR + GLOW
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", e=>{
+  cursor.style.left = e.clientX+"px";
+  cursor.style.top = e.clientY+"px";
+  document.documentElement.style.setProperty("--x", e.clientX+"px");
+  document.documentElement.style.setProperty("--y", e.clientY+"px");
+});
+
+// MODO INSANO (tecla I)
+document.addEventListener("keydown", e=>{
+  if(e.key.toLowerCase() === "i"){
+    document.body.style.filter = "hue-rotate(120deg)";
+    alert("🔥 MODO INSANO ATIVADO 🔥");
   }
 });
 
@@ -247,10 +282,10 @@ resize();
 window.onresize = resize;
 
 let stars = Array.from({length:80}, () => ({
-  x: Math.random()*canvas.width,
-  y: Math.random()*canvas.height,
+  x: Math.random()*innerWidth,
+  y: Math.random()*innerHeight,
   r: Math.random()*1.5+0.5,
-  s: Math.random()*0.5+0.2
+  s: Math.random()*0.6+0.2
 }));
 
 function resize(){
