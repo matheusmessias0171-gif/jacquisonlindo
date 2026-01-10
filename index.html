@@ -129,10 +129,51 @@ h1{font-size:42px}
   cursor:pointer;
 }
 
+/* TEMPO */
+.time{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  font-size:13px;
+  margin-top:6px;
+  opacity:.85;
+}
+
+/* BARRAS */
 .progress,
 .volume{
   width:100%;
   margin-top:10px;
+  -webkit-appearance:none;
+  appearance:none;
+  height:6px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#00f2ff,#8a2be2);
+  outline:none;
+  cursor:pointer;
+}
+
+.progress::-webkit-slider-thumb,
+.volume::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 10px #00f2ff;
+}
+
+/* VOLUME */
+.volume-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+}
+
+.vol-icon{
+  font-size:18px;
 }
 
 /* CONTAINER */
@@ -181,68 +222,63 @@ footer{
 <canvas id="bg"></canvas>
 
 <header>
-  <h1>Matheus 😎</h1>
-  <div class="typing" id="typing"></div>
-  <div class="status">🟢 Online agora</div>
+<h1>Matheus 😎</h1>
+<div class="typing" id="typing"></div>
+<div class="status">🟢 Online agora</div>
 
-  <div class="profile">
-    <img src="https://i.imgur.com/vWoLx1T.png">
-  </div>
+<div class="profile">
+<img src="https://i.imgur.com/vWoLx1T.png">
+</div>
 
-  <div class="badges">
-    <div class="badge">
-      <img src="badges/dev.png">
-      <span>Developer</span>
-    </div>
-    <div class="badge">
-      <img src="badges/python.png">
-      <span>Python</span>
-    </div>
-    <div class="badge">
-      <img src="badges/owner.png">
-      <span>Founder</span>
-    </div>
-  </div>
+<div class="badges">
+<div class="badge"><img src="badges/dev.png"><span>Developer</span></div>
+<div class="badge"><img src="badges/python.png"><span>Python</span></div>
+<div class="badge"><img src="badges/owner.png"><span>Founder</span></div>
+</div>
 
-  <div class="links">
-    <a href="https://discord.gg/Pz5VaveX" target="_blank">Discord</a>
-    <a href="https://www.instagram.com/rlk_mtzin016/" target="_blank">Instagram</a>
-  </div>
+<div class="links">
+<a href="https://discord.gg/Pz5VaveX" target="_blank">Discord</a>
+<a href="https://www.instagram.com/rlk_mtzin016/" target="_blank">Instagram</a>
+</div>
 
-  <!-- PLAYER -->
-  <div class="player">
-    <img src="https://imgur.com/ZAcuhSz.png">
-    <h3>Gargalhada do meu AK 🔫</h3>
+<div class="player">
+<img src="https://imgur.com/ZAcuhSz.png">
+<h3>Gargalhada do meu AK 🔫</h3>
 
-    <div class="controls" onclick="togglePlay()" id="playBtn">▶️</div>
+<div class="controls" onclick="togglePlay()" id="playBtn">▶️</div>
 
-    <!-- barra de tempo -->
-    <input type="range" class="progress" id="progress" value="0">
+<div class="time">
+<span id="currentTime">0:00</span>
+<span>/</span>
+<span id="duration">0:00</span>
+</div>
 
-    <!-- volume embaixo -->
-    <input type="range" class="volume" min="0" max="1" step="0.01" value="1"
-      onchange="audio.volume=this.value">
-  </div>
+<input type="range" class="progress" id="progress" value="0">
+
+<div class="volume-box">
+<span class="vol-icon">🔊</span>
+<input type="range" class="volume" min="0" max="1" step="0.01" value="1"
+oninput="audio.volume=this.value">
+</div>
+</div>
 </header>
 
 <div class="container">
-  <div class="card">
-    <h2>🍀 Número da sorte</h2>
-    <div class="big-number">7</div>
-  </div>
-
-  <div class="card">
-    <h2>💻 Projeto</h2>
-    <p>Ganhar dinheiro 💸</p>
-  </div>
+<div class="card">
+<h2>🍀 Número da sorte</h2>
+<div class="big-number">7</div>
 </div>
 
-<footer>
-  © 2026 • Matheus
-</footer>
+<div class="card">
+<h2>💻 Projeto</h2>
+<p>Ganhar dinheiro 💸</p>
+</div>
+</div>
+
+<footer>© 2026 • Matheus</footer>
 
 <audio id="audio">
-  <source src="music.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -259,6 +295,18 @@ let i=0;
 const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
 const playBtn = document.getElementById("playBtn");
+const currentTimeEl = document.getElementById("currentTime");
+const durationEl = document.getElementById("duration");
+
+function formatTime(t){
+  const m = Math.floor(t/60);
+  const s = Math.floor(t%60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+
+audio.addEventListener("loadedmetadata",()=>{
+  durationEl.textContent = formatTime(audio.duration);
+});
 
 function togglePlay(){
   if(audio.paused){
@@ -271,8 +319,9 @@ function togglePlay(){
 }
 
 audio.addEventListener("timeupdate",()=>{
-  progress.max = audio.duration || 0;
-  progress.value = audio.currentTime || 0;
+  progress.max = audio.duration;
+  progress.value = audio.currentTime;
+  currentTimeEl.textContent = formatTime(audio.currentTime);
 });
 
 progress.addEventListener("input",()=>{
