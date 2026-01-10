@@ -266,12 +266,6 @@ function togglePlay(){
   audio.paused ? audio.play() : audio.pause();
 }
 
-// PARTÍCULAS
-const canvas=document.getElementById("bg");
-const ctx=canvas.getContext("2d");
-resize();
-window.onresize=resize;
-
 let stars=Array.from({length:90},()=>({
   x:Math.random()*innerWidth,
   y:Math.random()*innerHeight,
@@ -301,3 +295,4 @@ draw();
 
 </body>
 </html>
+
