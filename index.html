@@ -5,218 +5,244 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Site do | Matheus</title>
 
-<link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" href="favicon.png">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
-body {
+body{
   font-family: Arial, sans-serif;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #1b2735, #090a0f);
-  color: white;
-  overflow-x: hidden;
-  cursor: none;
+  min-height:100vh;
+  color:#fff;
+  overflow-x:hidden;
+
+  background:
+    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.85)),
+    url("https://imgur.com/PpQ8dWg.gif");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-/* CURSOR */
-.cursor {
-  position: fixed;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #00f2ff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  box-shadow: 0 0 15px #00f2ff;
-}
 
-/* GLOW MOUSE */
-.glow {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at var(--x) var(--y), rgba(0,242,255,.12), transparent 40%);
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* PARTÍCULAS */
-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
+/* FUNDO PARTÍCULAS */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
 }
 
 /* HEADER */
-header {
-  text-align: center;
-  padding: 70px 20px 40px;
+header{
+  text-align:center;
+  padding:70px 20px 40px;
 }
 
-h1 { font-size: 42px; }
+h1{font-size:42px}
 
-.typing {
-  font-size: 20px;
-  opacity: .85;
-  margin-top: 8px;
+.typing{
+  margin-top:8px;
+  font-size:18px;
+  opacity:.85;
 }
 
-.status {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #00ff88;
-}
-
-/* BADGE */
-.badge {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  background: linear-gradient(90deg,#00f2ff,#8a2be2);
-  font-weight: bold;
+.status{
+  margin-top:6px;
+  font-size:14px;
+  color:#00ff88;
 }
 
 /* FOTO */
-.profile img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-top: 25px;
-  border: 4px solid #00f2ff;
-  animation: pulse 3s infinite alternate;
+.profile img{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  margin-top:25px;
+  border:4px solid #0ae441;
+  box-shadow:0 0 25px #ffffff;
 }
 
-@keyframes pulse {
-  from { box-shadow: 0 0 15px #00f2ff; }
-  to { box-shadow: 0 0 35px #8a2be2; }
+/* BADGES */
+.badges{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.badge{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+  border-radius:16px;
+  padding:14px;
+  width:110px;
+  transition:.3s;
+}
+
+.badge:hover{
+  transform:translateY(-6px) scale(1.05);
+  box-shadow:0 0 20px #8a2be2;
+}
+
+.badge img{
+  width:60px;
+  display:block;
+  margin:auto;
+}
+
+.badge span{
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+  opacity:.9;
 }
 
 /* LINKS */
-.links {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
+.links{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-top:25px;
 }
 
-.links a {
-  padding: 10px 18px;
-  border-radius: 25px;
-  background: linear-gradient(90deg,#00f2ff,#8a2be2);
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+.links a{
+  padding:10px 20px;
+  border-radius:25px;
+  background:linear-gradient(90deg,#00f2ff,#8a2be2);
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
 }
 
 /* PLAYER */
-.player {
-  margin: 35px auto;
-  max-width: 340px;
-  background: rgba(255,255,255,.08);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  padding: 15px;
+.player{
+  margin:35px auto;
+  max-width:320px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:15px;
 }
 
-.player img { width: 100%; border-radius: 12px; }
+.player img{
+  width:100%;
+  border-radius:12px;
+}
 
-.controls { font-size: 28px; cursor: pointer; }
+.controls{
+  margin-top:10px;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.volume{
+  width:100%;
+  margin-top:8px;
+}
 
 /* CONTAINER */
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
 }
 
-.card {
-  background: rgba(255,255,255,.08);
-  border-radius: 18px;
-  padding: 25px;
-  margin-bottom: 25px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: .6s;
+.card{
+  background:rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:25px;
+  transition:.4s;
 }
 
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
+.card:hover{
+  transform:translateY(-6px);
 }
 
-.card h2 { color: #00f2ff; }
+.card h2{
+  color:#00f2ff;
+  margin-bottom:10px;
+}
 
-/* NUMERO 9 */
-.big-nine {
-  font-size: 90px;
-  font-weight: bold;
-  text-align: center;
-  background: linear-gradient(90deg,#00f2ff,#8a2be2);
-  -webkit-background-clip: text;
-  color: transparent;
+/* NUMERO */
+.big-number{
+  font-size:80px;
+  font-weight:bold;
+  text-align:center;
+  background:linear-gradient(90deg,#00f2ff,#8a2be2);
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
 /* FOOTER */
-footer {
-  text-align: center;
-  opacity: .6;
-  padding: 20px;
+footer{
+  text-align:center;
+  opacity:.6;
+  padding:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
-<div class="glow"></div>
 <canvas id="bg"></canvas>
 
 <header>
   <h1>Matheus 😎</h1>
   <div class="typing" id="typing"></div>
   <div class="status">🟢 Online agora</div>
-  <div class="badge">DEV</div>
 
   <div class="profile">
     <img src="https://i.imgur.com/vWoLx1T.png">
   </div>
 
-  <div class="links">
-    <a href="#">Discord</a>
-    <a href="#">Instagram</a>
+  <!-- BADGES -->
+  <div class="badges">
+    <div class="badge">
+      <img src="badges/dev.png">
+      <span>Developer</span>
+    </div>
+    <div class="badge">
+      <img src="badges/python.png">
+      <span>Python</span>
+    </div>
+    <div class="badge">
+      <img src="badges/owner.png">
+      <span>Founder</span>
+    </div>
   </div>
 
+  <div class="links">
+    <a href="https://discord.gg/Pz5VaveX" target="_blank">Discord</a>
+    <a href="https://www.instagram.com/rlk_mtzin016/" target="_blank">Instagram</a>
+  </div>
+
+  <!-- PLAYER -->
   <div class="player">
     <img src="https://imgur.com/ZAcuhSz.png">
     <h3>Gargalhada do meu AK 🔫</h3>
     <div class="controls" onclick="togglePlay()">▶️</div>
+    <input type="range" class="volume" min="0" max="1" step="0.01" onchange="audio.volume=this.value">
   </div>
 </header>
 
 <div class="container">
 
   <div class="card">
-    <h2>🍀 Número da Sorte</h2>
-    <div class="big-nine">7</div>
+    <h2>🍀 Número da sorte</h2>
+    <div class="big-number">7</div>
   </div>
 
   <div class="card">
-    <h2>⏱️ Tempo no site</h2>
-    <p id="timeOn">0s</p>
-  </div>
-
-  <div class="card">
-    <h2>💻 Projetos</h2>
-    <p>• Ganhar muito dinheiro</p>
+    <h2>💻 Projeto</h2>
+    <p>Ganhar dinheiro 💸</p>
   </div>
 
 </div>
 
 <footer>
-  © 2026 • Matheus • <span id="clock"></span>
+  © 2026 • Matheus
 </footer>
 
 <audio id="audio">
@@ -224,81 +250,46 @@ footer {
 </audio>
 
 <script>
-// DIGITAÇÃO
-const text = "Começando do zero • Só quero dinheiro • Site insano 😈";
-let i = 0;
+// TEXTO DIGITANDO
+const text = "Começando do zero • Foco total •  DEV 🚀";
+let i=0;
 (function type(){
-  if(i < text.length){
-    typing.innerHTML += text[i++];
-    setTimeout(type, 55);
+  if(i<text.length){
+    typing.innerHTML+=text[i++];
+    setTimeout(type,55);
   }
 })();
 
 // PLAYER
-const audio = document.getElementById("audio");
-function togglePlay(){ audio.paused ? audio.play() : audio.pause(); }
-
-// RELÓGIO
-setInterval(()=>clock.innerText = new Date().toLocaleTimeString(),1000);
-
-// TEMPO NO SITE
-let seconds = 0;
-setInterval(()=>{
-  seconds++;
-  timeOn.innerText = seconds + "s";
-},1000);
-
-// ANIMAÇÃO SCROLL
-const cards = document.querySelectorAll(".card");
-window.addEventListener("scroll", ()=>{
-  cards.forEach(c=>{
-    if(c.getBoundingClientRect().top < innerHeight - 80){
-      c.classList.add("show");
-    }
-  });
-});
-
-// CURSOR + GLOW
-const cursor = document.querySelector(".cursor");
-document.addEventListener("mousemove", e=>{
-  cursor.style.left = e.clientX+"px";
-  cursor.style.top = e.clientY+"px";
-  document.documentElement.style.setProperty("--x", e.clientX+"px");
-  document.documentElement.style.setProperty("--y", e.clientY+"px");
-});
-
-// MODO INSANO (tecla I)
-document.addEventListener("keydown", e=>{
-  if(e.key.toLowerCase() === "i"){
-    document.body.style.filter = "hue-rotate(120deg)";
-    alert("🔥 MODO INSANO ATIVADO 🔥");
-  }
-});
+const audio=document.getElementById("audio");
+function togglePlay(){
+  audio.paused ? audio.play() : audio.pause();
+}
 
 // PARTÍCULAS
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
 resize();
-window.onresize = resize;
+window.onresize=resize;
 
-let stars = Array.from({length:80}, () => ({
-  x: Math.random()*innerWidth,
-  y: Math.random()*innerHeight,
-  r: Math.random()*1.5+0.5,
-  s: Math.random()*0.6+0.2
+let stars=Array.from({length:90},()=>({
+  x:Math.random()*innerWidth,
+  y:Math.random()*innerHeight,
+  r:Math.random()*1.5+0.5,
+  s:Math.random()*0.6+0.2
 }));
 
 function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
 }
 
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "#00f2ff";
+  ctx.fillStyle="#00f2ff";
   stars.forEach(p=>{
-    p.y += p.s;
-    if(p.y > canvas.height) p.y = 0;
+    p.y+=p.s;
+    if(p.y>canvas.height)p.y=0;
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
     ctx.fill();
